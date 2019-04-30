@@ -28,12 +28,11 @@ L = logwood.get_logger('GLOBAL')
 import asyncio
 import aiohttp
 import csv
-from dateutil import parser
-from dateutil.tz import tzutc
 import os
 import ujson
 import time
 from datetime import datetime
+from dateutil import parser
 from typing import List, Callable
 
 THIS_RUN = datetime.utcnow()
