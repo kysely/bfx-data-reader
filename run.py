@@ -27,13 +27,18 @@ L = logwood.get_logger('GLOBAL')
 # ------------------------------------------------------------------------------
 import asyncio
 import aiohttp
+import certifi
 import csv
 import os
-import ujson
+import ssl
 import time
+import ujson
 from datetime import datetime
 from dateutil import parser
 from typing import List, Callable
+
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+ssl_context.load_verify_locations(certifi.where())
 
 THIS_RUN = datetime.utcnow()
 BETWEEN_REQUESTS = 4
@@ -117,8 +122,8 @@ async def get_trades(symbol: str, start: int, end: int):
 
                     async with session.get(
                         'https://api-pub.bitfinex.com/v2/trades/{}/hist?start={}&end={}&limit=5000&sort=1'
-                            .format(normalize_symbol_name(symbol), last_timestamp+1, get_until)
-                        ) as resp:
+                            .format(normalize_symbol_name(symbol), last_timestamp+1, get_until),
+                        ssl=ssl_context) as resp:
 
                         # when we get rejected by the server for too many requests
                         if resp.status == 429:

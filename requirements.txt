@@ -1,4 +1,5 @@
 aiohttp==3.5.4
+certifi==2019.3.9
 logwood==3.1.0
 python-dateutil==2.8.0
 ujson==1.35
