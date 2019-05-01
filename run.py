@@ -1,5 +1,5 @@
 import logwood
-from logwood.handlers.stderr import ColoredStderrHandler
+from logwood.handlers.stderr import StderrHandler
 from argparse import ArgumentParser
 
 # app setup --------------------------------------------------------------------
@@ -21,7 +21,7 @@ sysargv = cli.parse_args()
 LOG_FORMAT = '{timestamp:.3f} [{level}] {message}'
 logwood.basic_config(
     level=logwood.DEBUG if sysargv.debug else logwood.INFO,
-    handlers=[ColoredStderrHandler(format=LOG_FORMAT)])
+    handlers=[StderrHandler(format=LOG_FORMAT)])
 L = logwood.get_logger('GLOBAL')
 
 # ------------------------------------------------------------------------------
